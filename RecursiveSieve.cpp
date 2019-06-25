@@ -4,7 +4,7 @@ using namespace std;
 
 void flagNonPrimes(vector<bool> &sieve, int number, int increment) {
 	if (number < sieve.size()) {
-		sieve.at(number) = false;
+		sieve[number] = false;
 		flagNonPrimes(sieve, number + increment, increment);
 	}
 
@@ -12,7 +12,7 @@ void flagNonPrimes(vector<bool> &sieve, int number, int increment) {
 
 void findPrimes(vector<bool> &sieve, int outer) {
 
-	if (sieve.at(outer)) {
+	if (sieve[outer]) {
 		flagNonPrimes(sieve, 2 * outer, outer);
 	}
 
