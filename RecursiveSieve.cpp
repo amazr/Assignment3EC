@@ -2,10 +2,10 @@
 #include <vector>
 using namespace std;
 
-void flagNonPrimes(vector<bool> &sieve, int number, int increment) {
-	if (number < sieve.size()) {
-		sieve[number] = false;
-		flagNonPrimes(sieve, number + increment, increment);
+void flagNonPrimes(vector<bool> &sieve, int inner, int increment) {
+	if (inner < sieve.size()) {
+		sieve[inner] = false;
+		flagNonPrimes(sieve, inner + increment, increment);
 	}
 
 }
@@ -33,7 +33,7 @@ void displayPrimes(vector<bool> sieve) {
 
 
 int main() {
-	int L = 100;
+	int L = 1000;
 	vector<bool> sieve(L, true);
 	sieve[0] = false;
 	sieve[1] = false;
