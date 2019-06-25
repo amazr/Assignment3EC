@@ -1,54 +1,43 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-void setAr(bool ar[], int L) {
+void flagNonPrimes(vector<bool> &sieve, int number, int increment) {
+	if (number < sieve.size()) {
+		sieve.at(number) = false;
+		flagNonPrimes(sieve, number + increment, increment);
+	}
 
-	for (int i = 0; i < L; i++) {
-		if (i < 2) {
-			ar[i] = false;
-		}
-		else {
-			ar[i] = true;
-		}
+}
+
+void findPrimes(vector<bool> &sieve, int outer) {
+
+	if (sieve.at(outer)) {
+		flagNonPrimes(sieve, 2 * outer, outer);
+	}
+
+	if (outer * outer < sieve.size()) {
+		findPrimes(sieve, outer + 1);
 	}
 }
 
-void findPrimes(bool ar[], int n, int L, int i) {
-	
-	if (ar[n]) {
-		if (i < L) {
-			ar[i] = false;
-			findPrimes(ar, n, L, i += n);
+void displayPrimes(vector<bool> sieve) {
+	cout << endl << "These are all of the prime numbers less than " << sieve.size() << ":" << endl;
+	for (int i = 0; i < sieve.size(); i++) {
+		if (sieve[i]) {
+			cout << i << " ";
 		}
 	}
-	
-	if (n * n < L) {
-		i = 2 * n;
-		findPrimes(ar, n + 1, L, i);
-	}
-}
-
-void displayPrimes(bool ar[], int L) {
-
-	for (int i = 0; i < L; i++) {
-		if (ar[i]) {
-			cout << i << " is prime." << endl;
-		}
-		else {
-			cout << i << " is not prime." << endl;
-		}
-	}
+	cout << endl << endl;
 }
 
 
 int main() {
-
 	int L = 100;
-	bool ar[100];
+	vector<bool> sieve(L, true);
+	sieve[0] = false;
+	sieve[1] = false;
 
-	setAr(ar, L);
-	findPrimes(ar, 2, L, 4);
-	displayPrimes(ar, L);
-	
-	return 0;
+	findPrimes(sieve, 2);
+	displayPrimes(sieve);
 }
