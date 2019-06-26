@@ -3,6 +3,7 @@
 using namespace std;
 
 void flagNonPrimes(vector<bool> &sieve, int inner, int increment) {
+
 	if (inner < sieve.size()) {
 		sieve[inner] = false;
 		flagNonPrimes(sieve, inner + increment, increment);
@@ -22,8 +23,12 @@ void findPrimes(vector<bool> &sieve, int outer) {
 }
 
 void displayPrimes(vector<bool> sieve) {
-	cout << endl << "These are all of the prime numbers less than " << sieve.size() << ":" << endl;
+
+	cout << endl << "These are all of the prime numbers less than " << sieve.size() << ":";
 	for (int i = 0; i < sieve.size(); i++) {
+		if (i % 50 == 0) {
+			cout << endl;
+		}
 		if (sieve[i]) {
 			cout << i << " ";
 		}
@@ -33,7 +38,11 @@ void displayPrimes(vector<bool> sieve) {
 
 
 int main() {
-	int L = 1000;
+
+	int L;
+	cout << "What is the upper range of numbers you'd like to search for prime-ness: ";
+	cin >> L;
+
 	vector<bool> sieve(L, true);
 	sieve[0] = false;
 	sieve[1] = false;
